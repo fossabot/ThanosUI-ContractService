@@ -1,5 +1,7 @@
 package com.github.abigail830.ThanosContractService.api;
 
+import com.github.abigail830.ThanosContractService.api.dto.TcpRequestDTO;
+import com.github.abigail830.ThanosContractService.api.dto.TcpResponseDTO;
 import com.github.abigail830.ThanosContractService.appl.UtilApplService;
 import com.github.abigail830.ThanosContractService.exception.BizException;
 import org.springframework.beans.factory.annotation.Autowired;

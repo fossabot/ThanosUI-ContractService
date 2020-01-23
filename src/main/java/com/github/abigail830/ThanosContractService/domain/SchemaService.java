@@ -2,7 +2,6 @@ package com.github.abigail830.ThanosContractService.domain;
 
 import com.github.abigail830.ThanosContractService.exception.BizException;
 import com.github.abigail830.ThanosContractService.exception.ErrorCode;
-import com.mongodb.MongoException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +48,9 @@ public class SchemaService {
 
     public void deleteSchemaById(String id) {
         schemaRepository.deleteById(id);
+    }
+
+    public Schema getSchemaBySchemaKey(SchemaKey schemaKey) {
+        return schemaRepository.findBySchemaKey(schemaKey);
     }
 }

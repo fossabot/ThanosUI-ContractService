@@ -1,4 +1,4 @@
-package com.github.abigail830.ThanosContractService.api;
+package com.github.abigail830.ThanosContractService.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class TcpResponseDTO {
-
-    String response;
+public class TcpRequestDTO {
+    String host;
+    String port;
+    String requestMsg;
 }
