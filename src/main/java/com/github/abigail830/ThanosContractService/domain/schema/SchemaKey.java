@@ -1,4 +1,4 @@
-package com.github.abigail830.ThanosContractService.domain;
+package com.github.abigail830.ThanosContractService.domain.schema;
 
 import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;

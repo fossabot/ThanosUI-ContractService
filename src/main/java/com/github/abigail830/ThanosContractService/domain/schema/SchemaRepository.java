@@ -1,4 +1,4 @@
-package com.github.abigail830.ThanosContractService.domain;
+package com.github.abigail830.ThanosContractService.domain.schema;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

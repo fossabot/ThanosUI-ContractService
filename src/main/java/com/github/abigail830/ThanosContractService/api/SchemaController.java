@@ -1,9 +1,9 @@
 package com.github.abigail830.ThanosContractService.api;
 
 import com.github.abigail830.ThanosContractService.api.dto.SchemaDTO;
-import com.github.abigail830.ThanosContractService.domain.Schema;
-import com.github.abigail830.ThanosContractService.domain.SchemaKey;
-import com.github.abigail830.ThanosContractService.domain.SchemaService;
+import com.github.abigail830.ThanosContractService.domain.schema.Schema;
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaKey;
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaService;
 import com.github.abigail830.ThanosContractService.exception.BizException;
 import com.github.abigail830.ThanosContractService.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;

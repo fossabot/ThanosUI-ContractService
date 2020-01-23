@@ -1,4 +1,4 @@
-package com.github.abigail830.ThanosContractService.domain;
+package com.github.abigail830.ThanosContractService.domain.schema;
 
 import com.github.abigail830.ThanosContractService.exception.BizException;
 import com.github.abigail830.ThanosContractService.exception.ErrorCode;

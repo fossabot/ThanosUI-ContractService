@@ -1,5 +1,8 @@
 package com.github.abigail830.ThanosContractService.domain;
 
+import com.github.abigail830.ThanosContractService.domain.schema.Schema;
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaKey;
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaRepository;
 import com.google.common.base.Strings;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.AfterEach;

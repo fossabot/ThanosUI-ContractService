@@ -1,7 +1,7 @@
 package com.github.abigail830.ThanosContractService.api.dto;
 
-import com.github.abigail830.ThanosContractService.domain.Schema;
-import com.github.abigail830.ThanosContractService.domain.SchemaField;
+import com.github.abigail830.ThanosContractService.domain.schema.Schema;
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaField;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
