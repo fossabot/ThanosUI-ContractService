@@ -35,13 +35,13 @@ public class SchemaController {
         schemaService.deleteSchemaById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Schema> getAllSchemas() {
         return schemaService.getAllSchemas();
     }
 
-    @GetMapping
-    public SchemaDTO getSchemaBySchemaKey(@RequestParam String index) {
+    @GetMapping("/index/{index}")
+    public SchemaDTO getSchemaBySchemaKey(@PathVariable String index) {
         final SchemaKey schemaKey = convertTokey(index);
         final Schema schema = schemaService.getSchemaBySchemaKey(schemaKey);
         if (schema != null)
