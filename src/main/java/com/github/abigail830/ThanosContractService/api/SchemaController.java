@@ -1,6 +1,7 @@
 package com.github.abigail830.ThanosContractService.api;
 
 import com.github.abigail830.ThanosContractService.api.dto.SchemaDTO;
+import com.github.abigail830.ThanosContractService.api.dto.SchemaKeyDTO;
 import com.github.abigail830.ThanosContractService.domain.schema.Schema;
 import com.github.abigail830.ThanosContractService.domain.schema.SchemaKey;
 import com.github.abigail830.ThanosContractService.domain.schema.SchemaService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -36,13 +38,29 @@ public class SchemaController {
     }
 
     @GetMapping
-    public List<Schema> getAllSchemas() {
-        return schemaService.getAllSchemas();
+    public List<SchemaDTO> getAllSchemas() {
+        return schemaService.getAllSchemas().stream().map(SchemaDTO::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/keys")
+    public List<SchemaKeyDTO> getAllSchemaKeys() {
+        return schemaService.getAllSchemas().stream().map(SchemaKeyDTO::new).collect(Collectors.toList());
     }
 
     @GetMapping("/index/{index}")
-    public SchemaDTO getSchemaBySchemaKey(@PathVariable String index) {
+    public SchemaDTO getSchemaBySchemaKeyAsString(@PathVariable String index) {
         final SchemaKey schemaKey = convertTokey(index);
+        final Schema schema = schemaService.getSchemaBySchemaKey(schemaKey);
+        if (schema != null)
+            return new SchemaDTO(schema);
+        else
+            return new SchemaDTO();
+    }
+
+    @GetMapping("/index")
+    public SchemaDTO getSchemaBySchemaKey(@RequestParam String provider,
+                                          @RequestParam String name, @RequestParam String version) {
+        final SchemaKey schemaKey = new SchemaKey(provider, name, version);
         final Schema schema = schemaService.getSchemaBySchemaKey(schemaKey);
         if (schema != null)
             return new SchemaDTO(schema);
