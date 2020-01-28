@@ -23,8 +23,8 @@ public class ContractDTO {
     private String provider;
     private String schemaId;
 
-    private LinkedList<ContractField> req;
-    private LinkedList<ContractField> res;
+    private LinkedList<ContractField> request;
+    private LinkedList<ContractField> response;
 
     public ContractDTO(Contract contract) {
         this.id = contract.getId();
@@ -33,14 +33,14 @@ public class ContractDTO {
         this.provider = contract.getContractKey().getProvider();
         this.consumer = contract.getContractKey().getConsumer();
         this.schemaId = contract.getSchemaId();
-        this.req = contract.getReq();
-        this.res = contract.getRes();
+        this.request = contract.getReq();
+        this.response = contract.getRes();
 
     }
 
     public Contract toContract() {
         return new Contract(
                 new ContractKey(name, version, consumer, provider),
-                schemaId, req, res);
+                schemaId, request, response);
     }
 }
