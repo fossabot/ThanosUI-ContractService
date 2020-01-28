@@ -1,11 +1,15 @@
 package com.github.abigail830.ThanosContractService.domain.contract;
 
-import com.github.abigail830.ThanosContractService.domain.schema.SchemaKey;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
@@ -13,16 +17,28 @@ import java.util.LinkedList;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contract {
+@Document
+@CompoundIndexes({
+        @CompoundIndex(name = "contractKey_index",
+                def = "{'contractKey.name' : 1, 'contractKey.version' : -1, " +
+                        "'contractKey.provider' : 1,'contractKey.consumer' : 1}", unique = true)
+})
+public class Contract implements Serializable {
 
-    private String name;
-    private String version;
-    private String consumer;
-    private String provider;
-    private String description;
+    @Id
+    private String id;
 
-    private SchemaKey schemaKey;
+    private ContractKey contractKey;
+    private String schemaId;
 
     private LinkedList<ContractField> req;
     private LinkedList<ContractField> res;
+
+    public Contract(ContractKey contractKey, String schemaId,
+                    LinkedList<ContractField> req, LinkedList<ContractField> res) {
+        this.contractKey = contractKey;
+        this.schemaId = schemaId;
+        this.req = req;
+        this.res = res;
+    }
 }

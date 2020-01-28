@@ -2,6 +2,7 @@ package com.github.abigail830.ThanosContractService.api.dto;
 
 import com.github.abigail830.ThanosContractService.domain.schema.Schema;
 import com.github.abigail830.ThanosContractService.domain.schema.SchemaField;
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaKey;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 @AllArgsConstructor
 public class SchemaDTO {
 
+    String id;
     String provider;
     String name;
     String version;
@@ -22,10 +24,15 @@ public class SchemaDTO {
     private LinkedList<SchemaField> response;
 
     public SchemaDTO(Schema schema) {
+        this.id = schema.getId();
         this.provider = schema.getSchemaKey().getProvider();
         this.name = schema.getSchemaKey().getName();
         this.version = schema.getSchemaKey().getVersion();
         this.request = schema.getRequest();
         this.response = schema.getResponse();
+    }
+
+    public Schema toSchema() {
+        return new Schema(id, new SchemaKey(provider, name, version), request, response);
     }
 }

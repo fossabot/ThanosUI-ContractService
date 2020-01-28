@@ -12,11 +12,13 @@ import lombok.ToString;
 @AllArgsConstructor
 public class SchemaKeyDTO {
 
+    String id;
     String provider;
     String name;
     String version;
 
     public SchemaKeyDTO(Schema schema) {
+        this.id = schema.getId();
         this.provider = schema.getSchemaKey().getProvider();
         this.name = schema.getSchemaKey().getName();
         this.version = schema.getSchemaKey().getVersion();

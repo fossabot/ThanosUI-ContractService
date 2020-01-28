@@ -20,9 +20,9 @@ public class SchemaService {
         return schemaRepository.findAll();
     }
 
-    public void addSchema(Schema schema) {
+    public Schema addSchema(Schema schema) {
         if (schema.getSchemaKey().isValid()) {
-            schemaRepository.insert(schema);
+            return schemaRepository.insert(schema);
         } else {
             log.warn("Invalid schemaKey for insert [{}]", schema.getSchemaKey());
             throw new BizException(ErrorCode.INVALID_SCHEMA_KEY);
@@ -52,5 +52,13 @@ public class SchemaService {
 
     public Schema getSchemaBySchemaKey(SchemaKey schemaKey) {
         return schemaRepository.findBySchemaKey(schemaKey);
+    }
+
+    public Schema getSchemaById(String id) {
+        return schemaRepository.findById(id).orElse(new Schema());
+    }
+
+    public List<Schema> getSchemaBySchemaKeys(List<SchemaKey> keys) {
+        return schemaRepository.findBySchemaKeyIn(keys);
     }
 }

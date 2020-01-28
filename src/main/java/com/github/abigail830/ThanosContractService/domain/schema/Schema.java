@@ -36,6 +36,13 @@ public class Schema implements Serializable {
         this.response = response;
     }
 
+    public Schema(String id, SchemaKey schemaKey, LinkedList<SchemaField> request, LinkedList<SchemaField> response) {
+        this.id = id;
+        this.schemaKey = schemaKey;
+        this.request = request;
+        this.response = response;
+    }
+
     public Boolean isValidForUpdate() {
         if (Strings.isNullOrEmpty(id) || !schemaKey.isValid()) {
             return false;
