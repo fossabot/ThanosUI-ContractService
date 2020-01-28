@@ -1,13 +1,16 @@
 package com.github.abigail830.ThanosContractService.api;
 
 import com.github.abigail830.ThanosContractService.api.dto.ContractDTO;
+import com.github.abigail830.ThanosContractService.domain.contract.Contract;
 import com.github.abigail830.ThanosContractService.domain.contract.ContractService;
-import io.swagger.annotations.ApiOperation;
+import com.github.abigail830.ThanosContractService.exception.BizException;
+import com.github.abigail830.ThanosContractService.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,10 +21,8 @@ public class ContractController {
     @Autowired
     ContractService contractService;
 
-    @ApiOperation(value = "Add Contract Detail-- Using by ThanosUI")
     @PostMapping
     public void addContract(@RequestBody ContractDTO contractDTO) {
-        log.info("{}", contractDTO);
         contractService.addContract(contractDTO.toContract());
     }
 
@@ -29,6 +30,19 @@ public class ContractController {
     public List<ContractDTO> getAllContracts() {
         return contractService.getAllContracts().stream()
                 .map(ContractDTO::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/schemaId/{schemaId}")
+    public List<ContractDTO> getContractsBySchemaId(@PathVariable String schemaId) {
+        return contractService.getContractBySchemaId(schemaId).stream()
+                .map(ContractDTO::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/id/{id}")
+    public ContractDTO getContractsById(@PathVariable String id) {
+        final Optional<Contract> contractById = contractService.getContractById(id);
+        return contractById.map(ContractDTO::new)
+                .orElseThrow(() -> new BizException(ErrorCode.CONTRACT_NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")

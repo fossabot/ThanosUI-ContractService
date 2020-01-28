@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,5 +25,13 @@ public class ContractService {
 
     public void deleteContractByid(String id) {
         contractRepository.deleteById(id);
+    }
+
+    public List<Contract> getContractBySchemaId(String schemaId) {
+        return contractRepository.findBySchemaId(schemaId);
+    }
+
+    public Optional<Contract> getContractById(String id) {
+        return contractRepository.findById(id);
     }
 }
