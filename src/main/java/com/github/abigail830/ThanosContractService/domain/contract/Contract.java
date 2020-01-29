@@ -1,5 +1,7 @@
 package com.github.abigail830.ThanosContractService.domain.contract;
 
+import com.github.abigail830.ThanosContractService.domain.schema.SchemaKey;
+import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,15 +32,25 @@ public class Contract implements Serializable {
 
     private ContractKey contractKey;
     private String schemaId;
+    private SchemaKey schemaKey;
 
     private LinkedList<ContractField> req;
     private LinkedList<ContractField> res;
 
-    public Contract(ContractKey contractKey, String schemaId,
+    public Contract(ContractKey contractKey, String schemaId, SchemaKey schemaKey,
                     LinkedList<ContractField> req, LinkedList<ContractField> res) {
         this.contractKey = contractKey;
         this.schemaId = schemaId;
+        this.schemaKey = schemaKey;
         this.req = req;
         this.res = res;
+    }
+
+    public boolean isValidForUpdate() {
+        if (Strings.isNullOrEmpty(id) || !contractKey.isValid()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

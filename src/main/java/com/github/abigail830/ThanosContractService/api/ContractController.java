@@ -1,6 +1,7 @@
 package com.github.abigail830.ThanosContractService.api;
 
 import com.github.abigail830.ThanosContractService.api.dto.ContractDTO;
+import com.github.abigail830.ThanosContractService.api.dto.ContractKeyDTO;
 import com.github.abigail830.ThanosContractService.domain.contract.Contract;
 import com.github.abigail830.ThanosContractService.domain.contract.ContractService;
 import com.github.abigail830.ThanosContractService.exception.BizException;
@@ -26,10 +27,27 @@ public class ContractController {
         contractService.addContract(contractDTO.toContract());
     }
 
+    @PutMapping
+    public void updateContract(@RequestBody ContractDTO contractDTO) {
+        log.info("{}", contractDTO);
+        contractService.updateContract(contractDTO.toContract());
+    }
+
     @GetMapping
     public List<ContractDTO> getAllContracts() {
         return contractService.getAllContracts().stream()
                 .map(ContractDTO::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/domain")
+    public List<Contract> getAllPureContracts() {
+        return contractService.getAllContracts();
+    }
+
+    @GetMapping("/keys")
+    public List<ContractKeyDTO> getAllContractKeys() {
+        return contractService.getAllContracts().stream()
+                .map(ContractKeyDTO::new).collect(Collectors.toList());
     }
 
     @GetMapping("/schemaId/{schemaId}")
@@ -45,8 +63,8 @@ public class ContractController {
                 .orElseThrow(() -> new BizException(ErrorCode.CONTRACT_NOT_FOUND));
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteContractById(String id) {
+    @DeleteMapping("/id/{id}")
+    public void deleteContractById(@PathVariable String id) {
         contractService.deleteContractByid(id);
     }
 }

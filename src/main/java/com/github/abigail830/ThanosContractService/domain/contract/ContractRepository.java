@@ -13,12 +13,13 @@ public interface ContractRepository extends MongoRepository<Contract, String> {
 
     Optional<Contract> findById(String id);
 
+    Optional<Contract> findByIdAndContractKey(String id, ContractKey contractKey);
+
+    List<Contract> findByContractKeyIn(List<ContractKey> contractKeys);
+
     Contract insert(Contract contract);
 
     void deleteByContractKey(ContractKey contractKey);
 
     void deleteById(String id);
-
-    List<Contract> findByContractKeyIn(List<ContractKey> contractKeys);
-
 }
