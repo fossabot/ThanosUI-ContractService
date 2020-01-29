@@ -46,6 +46,10 @@ public class Contract implements Serializable {
         this.res = res;
     }
 
+    public String getIndex() {
+        return contractKey.getProvider() + '-' + contractKey.getConsumer();
+    }
+
     public boolean isValidForUpdate() {
         if (Strings.isNullOrEmpty(id) || !contractKey.isValid()) {
             return false;

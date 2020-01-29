@@ -44,9 +44,8 @@ public class ContractDTO {
 
         this.schemaProvider = Optional.ofNullable(contract.getSchemaKey().getProvider()).orElse("");
         this.schemaName = Optional.ofNullable(contract.getSchemaKey().getName()).orElse("");
-        ;
+
         this.schemaVersion = Optional.ofNullable(contract.getSchemaKey().getVersion()).orElse("");
-        ;
 
     }
 

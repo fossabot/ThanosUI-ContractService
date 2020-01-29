@@ -16,7 +16,6 @@ import java.util.LinkedList;
 @AllArgsConstructor
 public class SchemaDTO {
 
-    String id;
     String provider;
     String name;
     String version;
@@ -24,7 +23,6 @@ public class SchemaDTO {
     private LinkedList<SchemaField> response;
 
     public SchemaDTO(Schema schema) {
-        this.id = schema.getId();
         this.provider = schema.getSchemaKey().getProvider();
         this.name = schema.getSchemaKey().getName();
         this.version = schema.getSchemaKey().getVersion();
@@ -33,6 +31,6 @@ public class SchemaDTO {
     }
 
     public Schema toSchema() {
-        return new Schema(id, new SchemaKey(provider, name, version), request, response);
+        return new Schema(new SchemaKey(provider, name, version), request, response);
     }
 }

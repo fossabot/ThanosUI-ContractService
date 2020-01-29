@@ -2,10 +2,12 @@ package com.github.abigail830.ThanosContractService.api;
 
 import com.github.abigail830.ThanosContractService.api.dto.ContractDTO;
 import com.github.abigail830.ThanosContractService.api.dto.ContractKeyDTO;
+import com.github.abigail830.ThanosContractService.api.dto.MockServerContractDTO;
 import com.github.abigail830.ThanosContractService.domain.contract.Contract;
 import com.github.abigail830.ThanosContractService.domain.contract.ContractService;
 import com.github.abigail830.ThanosContractService.exception.BizException;
 import com.github.abigail830.ThanosContractService.exception.ErrorCode;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,5 +68,26 @@ public class ContractController {
     @DeleteMapping("/id/{id}")
     public void deleteContractById(@PathVariable String id) {
         contractService.deleteContractByid(id);
+    }
+
+    @ApiOperation(value = "Search Contracts by index (provider-consumer) -- Using by MockServer")
+    @GetMapping("/index/{index}")
+    public List<MockServerContractDTO> getAllContractByIndex(@PathVariable String index) {
+        final int i = index.indexOf("-");
+        if ((i != -1) && (i < index.length())) {
+            String provider = index.substring(0, i);
+            String consumer = index.substring(i + 1);
+            return contractService.getAllContractsByIndex(provider, consumer).stream()
+                    .map(MockServerContractDTO::new).collect(Collectors.toList());
+        } else {
+            throw new BizException(ErrorCode.INVALID_CONTRACT_INDEX);
+        }
+    }
+
+    @ApiOperation(value = "Search all indexs (provider-consumer) -- Using by MockServer")
+    @GetMapping("/index")
+    public List<String> getAllContractIndexs() {
+        return contractService.getAllContracts().stream()
+                .map(Contract::getIndex).distinct().collect(Collectors.toList());
     }
 }

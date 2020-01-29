@@ -22,4 +22,6 @@ public interface ContractRepository extends MongoRepository<Contract, String> {
     void deleteByContractKey(ContractKey contractKey);
 
     void deleteById(String id);
+
+    List<Contract> findByContractKey_ProviderAndContractKey_Consumer(String provider, String consumer);
 }

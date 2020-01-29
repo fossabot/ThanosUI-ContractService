@@ -52,4 +52,8 @@ public class ContractService {
             throw new BizException(ErrorCode.CONTRACT_NOT_EXIST_FOR_UPDATE);
         }
     }
+
+    public List<Contract> getAllContractsByIndex(String provider, String consumer) {
+        return contractRepository.findByContractKey_ProviderAndContractKey_Consumer(provider, consumer);
+    }
 }
