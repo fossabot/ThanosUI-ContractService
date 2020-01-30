@@ -28,7 +28,7 @@ public class MockServerContractDTO {
         this.version = contract.getContractKey().getVersion();
         this.provider = contract.getContractKey().getProvider();
         this.consumer = contract.getContractKey().getConsumer();
-        this.schemaIndex = contract.getSchemaId();
+        this.schemaIndex = contract.getSchemaKey().toString();
 
         this.req = contract.getReq().stream().filter(field -> !Strings.isNullOrEmpty(field.getContractContent()))
                 .map(MockServerContractFieldDTO::new).collect(Collectors.toCollection(LinkedList::new));

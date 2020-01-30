@@ -4,11 +4,9 @@ import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
@@ -26,4 +24,8 @@ public class SchemaKey {
     }
 
 
+    @Override
+    public String toString() {
+        return provider + '-' + name + '-' + version;
+    }
 }
