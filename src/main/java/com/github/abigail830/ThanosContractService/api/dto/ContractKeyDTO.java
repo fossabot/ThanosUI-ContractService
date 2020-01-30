@@ -17,6 +17,7 @@ public class ContractKeyDTO {
     private String version;
     private String consumer;
     private String provider;
+    private String schemaIndex;
 
     public ContractKeyDTO(Contract contract) {
         this.id = contract.getId();
@@ -24,5 +25,6 @@ public class ContractKeyDTO {
         this.version = contract.getContractKey().getVersion();
         this.provider = contract.getContractKey().getProvider();
         this.consumer = contract.getContractKey().getConsumer();
+        this.schemaIndex = contract.getSchemaKey().toString();
     }
 }

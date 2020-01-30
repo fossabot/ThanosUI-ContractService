@@ -27,6 +27,7 @@ public class ContractDTO {
     private String schemaProvider;
     private String schemaName;
     private String schemaVersion;
+    private String schemaIndex;
 
     private LinkedList<ContractField> request;
     private LinkedList<ContractField> response;
@@ -44,8 +45,8 @@ public class ContractDTO {
 
         this.schemaProvider = Optional.ofNullable(contract.getSchemaKey().getProvider()).orElse("");
         this.schemaName = Optional.ofNullable(contract.getSchemaKey().getName()).orElse("");
-
         this.schemaVersion = Optional.ofNullable(contract.getSchemaKey().getVersion()).orElse("");
+        this.schemaIndex = new SchemaKey(this.schemaProvider, this.schemaName, this.schemaVersion).toString();
 
     }
 

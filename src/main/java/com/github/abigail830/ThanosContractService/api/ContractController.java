@@ -58,6 +58,11 @@ public class ContractController {
                 .map(ContractDTO::new).collect(Collectors.toList());
     }
 
+    @GetMapping("/count/schemaId/{schemaId}")
+    public Integer getContractsCountBySchemaId(@PathVariable String schemaId) {
+        return contractService.getContractBySchemaId(schemaId).size();
+    }
+
     @GetMapping("/id/{id}")
     public ContractDTO getContractsById(@PathVariable String id) {
         final Optional<Contract> contractById = contractService.getContractById(id);
