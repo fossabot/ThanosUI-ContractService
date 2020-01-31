@@ -89,6 +89,19 @@ public class ContractController {
         }
     }
 
+    @ApiOperation(value = "Search Contracts count by index (provider-consumer) -- Using by MockServer")
+    @GetMapping("/count/index/{index}")
+    public Integer getAllContractCountByIndex(@PathVariable String index) {
+        final int i = index.indexOf("-");
+        if ((i != -1) && (i < index.length())) {
+            String provider = index.substring(0, i);
+            String consumer = index.substring(i + 1);
+            return contractService.getAllContractsByIndex(provider, consumer).size();
+        } else {
+            throw new BizException(ErrorCode.INVALID_CONTRACT_INDEX);
+        }
+    }
+
     @ApiOperation(value = "Search all indexs (provider-consumer) -- Using by MockServer")
     @GetMapping("/index")
     public List<String> getAllContractIndexs() {
