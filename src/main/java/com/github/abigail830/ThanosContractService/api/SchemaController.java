@@ -86,6 +86,6 @@ public class SchemaController {
             }
         }
         log.warn("Invalid index fail to convert to schemaKey : [{}]", index);
-        throw new BizException(ErrorCode.INVALID_SCHEMA_KEY);
+        throw new BizException(ErrorCode.SCHEMA_KEY_INVALID);
     }
 }

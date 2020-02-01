@@ -3,6 +3,7 @@ package com.github.abigail830.ThanosContractService.api;
 import com.github.abigail830.ThanosContractService.api.dto.ContractDTO;
 import com.github.abigail830.ThanosContractService.api.dto.ContractKeyDTO;
 import com.github.abigail830.ThanosContractService.api.dto.MockServerContractDTO;
+import com.github.abigail830.ThanosContractService.appl.GenerateTestCaseApplService;
 import com.github.abigail830.ThanosContractService.domain.contract.Contract;
 import com.github.abigail830.ThanosContractService.domain.contract.ContractService;
 import com.github.abigail830.ThanosContractService.exception.BizException;
@@ -23,6 +24,9 @@ public class ContractController {
 
     @Autowired
     ContractService contractService;
+
+    @Autowired
+    GenerateTestCaseApplService generateTestCaseApplService;
 
     @PostMapping
     public void addContract(@RequestBody ContractDTO contractDTO) {
@@ -85,7 +89,7 @@ public class ContractController {
             return contractService.getAllContractsByIndex(provider, consumer).stream()
                     .map(MockServerContractDTO::new).collect(Collectors.toList());
         } else {
-            throw new BizException(ErrorCode.INVALID_CONTRACT_INDEX);
+            throw new BizException(ErrorCode.CONTRACT_INDEX_INVALID);
         }
     }
 
@@ -98,7 +102,7 @@ public class ContractController {
             String consumer = index.substring(i + 1);
             return contractService.getAllContractsByIndex(provider, consumer).size();
         } else {
-            throw new BizException(ErrorCode.INVALID_CONTRACT_INDEX);
+            throw new BizException(ErrorCode.CONTRACT_INDEX_INVALID);
         }
     }
 
@@ -107,5 +111,11 @@ public class ContractController {
     public List<String> getAllContractIndexs() {
         return contractService.getAllContracts().stream()
                 .map(Contract::getIndex).distinct().collect(Collectors.toList());
+    }
+
+    @GetMapping("/generate-junit/id/{contractId}")
+    public String generateJunitTestCase(@PathVariable String contractId) {
+
+        return generateTestCaseApplService.generateJunit(contractId);
     }
 }

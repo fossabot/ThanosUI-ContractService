@@ -39,8 +39,8 @@ public class ContractService {
 
     public void updateContract(Contract contract) {
         if (!contract.isValidForUpdate()) {
-            log.warn("Invalid schema for update (id or schemaKey is null): [{}]", contract);
-            throw new BizException(ErrorCode.INVALID_CONTRACT_FOR_UPDATE);
+            log.warn("Invalid contract for update (id or schemaKey is null): [{}]", contract);
+            throw new BizException(ErrorCode.CONTRACT_INVALID);
         }
         final Optional<Contract> contractOptional =
                 contractRepository.findByIdAndContractKey(contract.getId(), contract.getContractKey());
@@ -48,8 +48,8 @@ public class ContractService {
         if (contractOptional.isPresent()) {
             contractRepository.save(contract);
         } else {
-            log.warn("Schema not exist for update : [{}]", contract);
-            throw new BizException(ErrorCode.CONTRACT_NOT_EXIST_FOR_UPDATE);
+            log.warn("Contract not exist for update : [{}]", contract);
+            throw new BizException(ErrorCode.CONTRACT_NOT_FOUND);
         }
     }
 

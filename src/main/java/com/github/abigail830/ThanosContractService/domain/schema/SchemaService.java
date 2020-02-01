@@ -25,14 +25,14 @@ public class SchemaService {
             return schemaRepository.insert(schema);
         } else {
             log.warn("Invalid schemaKey for insert [{}]", schema.getSchemaKey());
-            throw new BizException(ErrorCode.INVALID_SCHEMA_KEY);
+            throw new BizException(ErrorCode.SCHEMA_KEY_INVALID);
         }
     }
 
     public Schema updateSchema(Schema schema) {
         if(!schema.isValidForUpdate()){
             log.warn("Invalid schema for update (id or schemaKey is null): [{}]", schema);
-            throw new BizException(ErrorCode.INVALID_SCHEMA_FOR_UPDATE);
+            throw new BizException(ErrorCode.SCHEMA_INVALID);
         }
         final Optional<Schema> bySchemaKey =
                 Optional.ofNullable(schemaRepository.findByIdAndSchemaKey(schema.getId(), schema.getSchemaKey()));
@@ -41,7 +41,7 @@ public class SchemaService {
             return schema;
         } else {
             log.warn("Schema not exist for update : [{}]", schema);
-            throw new BizException(ErrorCode.SCHEMA_NOT_EXIST_FOR_UPDATE);
+            throw new BizException(ErrorCode.SCHEMA_NOT_EXIST);
         }
     }
 
