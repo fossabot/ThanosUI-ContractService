@@ -14,6 +14,13 @@
 	<name>ThanosContractService</name>
 	<description>Demo project for Spring Boot</description>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -82,9 +89,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.thanos.contract</groupId>
-			<artifactId>code-generator</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<groupId>com.github.abigail830</groupId>
+			<artifactId>ThanosCodeGenerator</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
